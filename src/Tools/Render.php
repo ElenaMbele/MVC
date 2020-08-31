@@ -27,20 +27,11 @@ class Render
 
     public function renderTwig($template, $data = [])
     {
-//       if (!$this->twig) {
-////            $loader = new Twig_Loader_Filesystem($this->templateDirectory);
-////            $this->twig = new Twig_Environment($loader);
-//
-//            $loader = new \Twig\Loader\FilesystemLoader($this->templateDirectory);
-//            $this->twig = new \Twig\Environment($loader, []);
-//
-////            return $twig->render($template, $data);
-//        }
-//
-//        return $this->twig->render($template, $data);
-        $loader = new \Twig\Loader\FilesystemLoader(__DIR__.'/../Views');
-        $twig = new \Twig\Environment($loader, []);
+        if (!$this->twig) {
+            $loader = new \Twig\Loader\FilesystemLoader(__DIR__.'/../Views');
+            $this->twig = new \Twig\Environment($loader, []);
+        }
 
-        return $twig->render($template, $data);
+        return $this->twig->render($template, $data);
     }
 }
