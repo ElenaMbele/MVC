@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+</head>
+<body>
+<h1 style="text-align: center">ВАШ ЛИЧНЫЙ КАБИНЕТ</h1>
+<p style="text-align: center">Добро пожаловать,  <?= $user['user_name'] ?>!</p>
+<p style="text-align: center"><a href="logout">ВЫХОД</a></p>
+<div style="margin: 20px">
+    <h2>Напишите сообщение:</h2>
+    <form name='form1' method='post' action="/mvc/public/admin" enctype="multipart/form-data">
+        Сообщение:<br>
+        <textarea name='message_text' cols='60' rows='5' style="border: 2px solid #5f97a8"></textarea><br><br>
+        <div>
+            <input type="file" name="image">
+        </div>
+        <button type='submit' style="background-color: #5f97a8">Отправить</button>
+    </form>
+</div>
+
+<h2 style="text-align: center">БЛОГ</h2>
+<?php foreach($messages as $message) : ?>
+<div style="background-color: #5f97a8; margin: 30px; margin-left: 10px; padding: 20px">
+    <h4>Заголовок</h4>
+    <p><?=$message['message']?></p>
+    <?php if($message['image'] !== null): ?>
+    <div><img height="50" src='<?=$message['image']?>'></div>
+    <?php endif; ?>
+    <p>Автор: <em><?=$message['user_name']?></em></p>
+    <?php if($user['isAdmin']): ?>
+            <form method="post" action="/mvc(2)/public/deleteMessage">
+                <input type="hidden" name="messageId" value="<?php echo $message['id'] ?>"/>
+                <input type="submit" value="УДАЛИТЬ" style="color: red; background-color: transparent; border: 2px solid transparent"/>
+            </form>
+    <?php endif; ?>
+</div>
+<?php endforeach; ?>
+</body>
+</html>
